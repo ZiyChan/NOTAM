@@ -1,0 +1,664 @@
+key,value
+AAHK,Airport Authority Hong Kong*
+AAL,Above aerodrome level
+ABM,Abeam
+AC,Altocumulus
+ACAS,Airborne collision avoidance system
+ACC,Area control centre or area control
+ACFT,Aircraft
+ACL,Altimeter check location
+AD,Aerodrome
+ADF,Automatic direction-finding equipment
+ADS-B,Automatic dependent surveillance broadcast
+ADS-C,Automatic dependent surveillance contract
+AFIL,Flight plan filed in the air
+AFM,Yes or affirm or affirmative or that is correct
+AFS,Aeronautical fixed service
+AFTN,Aeronautical fixed telecommunication network
+AGA,"Aerodromes, air routes and ground aids"
+AGL,Above ground level
+AIC,Aeronautical information circular
+AIMC,Aeronautical Information Management Centre*
+AIP,Aeronautical information publication
+AIRAC,Aeronautical information regulation and control
+AIREP,Air-report
+AIS,Aeronautical information services
+ALERFA,Alert phase
+ALR,Alerting 
+ALRS,Alerting service
+ALS,Approach lighting system
+ALT,Altitude
+ALTN,Alternate 
+AMD,Amend or amended 
+AMDT,Amendment 
+AMS,Aeronautical mobile service
+AMSL,Above mean sea level
+AMSS,Aeronautical mobile satellite service
+AVGAS,Aviation gasoline
+AVTUR,Aviation turbine fuel*
+AWY,Airway
+AZM,Azimuth
+BASE,Cloud base
+BCFG,Fog patches
+BCN,Beacon 
+BCST,Broadcast
+BDRY,Boundary
+BECMG,Becoming
+BFR,Before
+BKN,Broken
+BLDG,Building
+BLW,Below.....
+BR,Mist
+BRF,Short 
+BRG,Bearing
+BRKG,Braking
+BTN,Between
+C,Centre 
+C,Degrees Celsius 
+CAD,Civil Aviation Department*
+CASEVAC,Casualty evacuation*
+CAT,Category
+CAT,Clear air turbulence
+CAVOK,"Visibility, cloud and present weather better than"
+CB,Cumulonimbus
+CC,Cirrocumulus
+CCA, Corrected
+CCTV,Closed circuit television*
+CDC,Clearance delivery control*
+CDN,Co-ordination 
+CH,Channel
+CHG,Modification 
+CI,Cirrus
+CIDIN,Common ICAO data interchange network
+CL,Centre line
+CLA,Clear type of ice formation
+DEP,Departure 
+DER,Departure end of runway
+DES,Descend to or descending to
+DEST,Destination
+DETRESFA,Distress phase
+DFTI,Distance from touchdown indicator
+DH,Decision height
+DIAM,Diameter*
+DIST,Distance
+DIV,Divert or diverting
+DLA,Delay 
+DME,Distance measuring equipment
+DOF,Date of flight
+DP,Dew point temperature
+DR,Dead reckoning
+DRG,During
+DS,Dust storm
+DTG,Date-time group
+DU,Dust
+DUC,Dense upper cloud
+DUR,Duration
+DVOR,Doppler VOR
+DZ,Drizzle
+E,East or eastern longitude
+EAT,Expected approach time
+EDA,Elevation differential area
+EET,Estimated elapsed time
+EGNOS,European geostationary navigation overlay
+ELEV,Elevation
+ELR,Extra long range
+EM,Emission
+EMBD,Embedded in layer 
+EMERG,Emergency
+EN,English*
+END,Stop-end 
+ENE,East north east
+ENG,Engine
+ENR,En-route
+EOBT,Estimated off-block time
+EQPT,Equipment
+ESE,East south east
+FZDZ,Freezing drizzle
+FZFG,Freezing fog
+FZRA,Freezing rain
+G,Variations from the mean wind speed
+G/A,Ground-to-air
+GA,General Aviation
+GAGAN,GPS and Geostationary earth orbit augmented
+GARP,GBAS azimuth reference point
+GBAS,Ground-based augmentation system
+GEN,General
+GEO,Geographic or true
+GFS,Government Flying Service*
+GMC,Ground movement control*
+GND,Ground
+GNDCK,Ground check
+GNSS,Global navigation satellite system
+GP,Glide path
+GPS,Global positioning system
+GR,Hail
+GRAS,Ground-based regional augmentation system
+GS,Ground speed
+H24,Continuous day and night service
+HBN,Hazard beacon
+HDG,Heading
+HEL,Helicopter
+HF,High frequency 
+HGT,Height or height above
+HJ,Sunrise to sunset
+HK,Hong Kong*
+HKD,Hong Kong Dollars*
+HKIA,Hong Kong International Airport*
+HLDG,Holding
+HN,Sunset to sunrise
+HO,Service available to meet operational
+HOL,Holiday
+HPA,Hectopascal
+HR,Hours
+HS,Service available during hours of scheduled
+KG,Kilograms
+KHZ,Kilohertz
+KIAS,Knots indicated airspeed
+KM,Kilometres
+KT,Knots
+KW,Kilowatts
+L,Left 
+LAM,Logical acknowledgement 
+LAT,Latitude
+LCA,"Local, locally, location or located"
+LDA,Landing distance available
+LDG,Landing
+LDI,Landing direction indicator
+LGT,Light or lighting
+LGTD,Lighted
+LIH,Light intensity high
+LIL,Light intensity low
+LLZ,Localizer *
+LOC,Localizer
+LONG,Longitude
+LORAN,LORAN 
+LRG,Long range
+LTD,Limited
+LTP,Landing threshold point
+LV,Light and variable 
+LVL,Level
+LVP,Low visibility procedures
+M,Degree magnetic*
+M,Mach number 
+M,Metres 
+M,Minimum value of runway visual range
+MAINT,Maintenance
+MAP,Aeronautical maps and charts
+MAPT,Missed approach point
+MAR,March
+MAX,Maximum
+MAY,May
+MDA,Minimum descent altitude
+MDH,Minimum descent height
+NBFR,Not before
+NC,No change
+NCD,No cloud detected 
+NDB,Non directional radio beacon
+NDV,No directional variations available 
+NE,North-east
+NEB,North-eastbound
+NEG,No or negative or permission not granted or that
+NGT,Night
+NIL,None or I have nothing to send
+NM,Nautical miles
+NML,Normal
+NNE,North north east
+NNW,North north west
+NOF,International NOTAM office
+NOSIG,No significant change 
+NOTAM,Notice distributed by means of telecommunica-
+NOTAMC,Cancelling NOTAM
+NOTAMN,New NOTAM
+NOTAMR,Replacing NOTAM
+NOV,November
+NR,Number
+NS,Nimbostratus
+NSC,Nil significant cloud
+NW,North-west
+NXT,Next
+O/R,On request
+OAC,Oceanic area control centre
+OBS,Observe or observed or observation
+OBSC,Obscure or obscured or obscuring
+OBST,Obstacle
+OCA,Obstacle clearance altitude
+OCC,Occulting 
+OCH,Obstacle clearance height
+OCL,Obstacle clearance limit*
+QFU,Magnetic orientation of runway
+QNH,Altimeter sub-scale setting to obtain elevation
+QTE,True bearing
+R,Radial from VOR 
+R,Restricted area 
+R,Right 
+RA,Rain
+RAC,Rules of the air and air traffic services
+RAD,Radar*
+RASS,Remote altimeter setting source
+RCC,Rescue co-ordination centre
+RCF,Radio communication failure 
+RCL,Runway centre line
+RCLL,Runway centre line light
+RDH,Reference datum height
+RDO,Radio
+RE,Recent 
+REC,Receive or receiver
+REDL,Runway edge light
+REF,Reference to .. or refer to ...
+REG,Registration
+RENL,Runway end light
+REP,Report or reporting or reporting point
+REQ,Request or requested
+RESA,Runway end safety area
+RETIL,Rapid Exit Taxiway Indicator Lights*
+RLCE,Request level change en-route
+RMAC,Radar minimum altitude chart*
+RMK,Remark
+RNAV,Area navigation
+RNG,Radio range
+RNP,Required navigation performance
+ROC,Rate of climb
+RPL,Repetitive flight plan
+RQP,Request flight plan 
+RQS,Request supplementary flight plan 
+RRA, Delayed
+RSR,En-route surveillance radar
+SKED,Schedule or scheduled
+SMR,Surface movement radar
+SN,Snow
+SNOWTAM,A special series NOTAM notifying the presence
+SPECI,Aerodrome special meteorological report 
+SPECIAL,Special meteorological report 
+SPL,Supplementary flight plan
+SQ,Squall
+SR,Sunrise
+SRA,Surveillance radar approach
+SRE,Surveillance radar element of precision
+SRY,Secondary
+SS,Sandstorm
+SS,Sunset
+SSB,Single sideband
+SSE,South south east
+SSR,Secondary surveillance radar
+SSW,South south west
+ST,Stratus
+STA,Straight in approach
+STAR,Standard Instrument Arrival
+STD,Standard
+STF,Stratiform
+STN,Station
+STS,Status
+STWL,Stopway light
+SUN,Sunday
+SUP,Supplement 
+SUPPS,Regional supplementary procedures
+SVFR,Special visual flight rules*
+SW,South-west
+SWB,South-westbound
+SWY,Stopway
+T,True 
+TA,Transition altitude
+TAA,Terminal arrival altitude
+TAF,Aerodrome forecast
+TXL,Taxilane
+TYP,Type of aircraft
+TYPH,Typhoon
+U/S,Unserviceable
+U/SLG,Under slung*
+UCARA,Uncontrolled airspace reporting area*
+UFN,Until further notice
+ULR,Ultra long range
+UNL,Unlimited
+UP,Unidentified precipitation 
+UTC,Co-ordinated Universal Time
+V,Variations in the mean wind direction 
+VA,Volcanic ash
+VAC,Visual approach chart
+VAR,Magnetic variation
+VC,Vicinity of the aerodrome 
+VCP,VOR check point*
+VDF,Very high frequency direction-finding station
+VFR,Visual flight rules
+VHF,Very high frequency 
+VIP,Very important person
+VIS,Visibility
+VMC,Visual meteorological conditions
+VOL,Volume 
+VOLMET,Meteorological information for aircraft in flight
+VOR,VHF omnidirectional radio range
+VORTAC,VOR and TACAN combination
+VPA,Vertical path angle
+VRB,Variable
+VV,Vertical visibility
+W,West or western longitude
+WAAS,Wide area augmentation system
+WAC,World aeronautical chart - ICAO 1:1 000 000
+WB,Westbound
+WBAR,Wingbar lights
+AOC,Aerodrome obstacle chart 
+AOM,Aerodrome Operating Minima*
+AOR,Area of Responsibility*
+AP,Airport
+APCH,Approach
+APP,Approach control office or approach control or
+APR,April
+APRX,Approximate or approximately
+ARFOR,Area forecast 
+ARP,Aerodrome reference point
+ARP,Air-report 
+AS,Altostratus
+ASC,Ascend to or ascending to
+ASDA,Accelerate-stop distance available
+ASPH,Asphalt
+ASR,Approach surveillance radar*
+ASSR,Approach secondary surveillance radar*
+AT,At 
+ATA,Actual time of arrival
+ATC,Air traffic control 
+ATCC,Air traffic control centre*
+ATCU,Air traffic control unit*
+ATD,Actual time of departure
+ATFM,Air traffic flow management
+ATIS,Automatic terminal information service
+ATM,Air traffic management
+ATN,Aeronautical telecommunication network
+ATS,Air traffic services
+ATTN,Attention
+ATZ,Aerodrome traffic zone
+AUG,August
+AUTH,Authorized or authorization
+AUW,All up weight
+AUX,Auxiliary
+AVBL,Available or availability
+CLBR,Calibration
+CLD,Cloud
+CLG,Calling
+CLIMB-OUT,Climb-out area
+CLR,Clear or cleared to... or clearance
+CLRD,Runway/s cleared 
+CLSD,Close or closed or closing
+CM,Centimetre
+CNL,Cancel or cancelled
+CNL,Flight plan cancellation 
+CNS,"Communications, navigation and surveillance"
+COM,Communications
+CONC,Concrete
+COND,Condition
+CONST,Construction or constructed
+CONT,Continue or continued
+COOR,Co-ordination
+COP,Change-over point
+COR,Correct or correction or corrected 
+CPL,Current flight plan 
+CS,Cirrostratus
+CTA,Control area
+CTC,Contact
+CTL,Control
+CTN,Caution
+CTR,Control zone
+CU,Cumulus
+CUF,Cumuliform
+CUST,Customs
+CVSM,Conventional separation minima*
+CWY,Clearway
+D,Danger area 
+D,Distance*
+DA,Decision altitude
+DCD,Double channel duplex
+DCP,Datum crossing point
+DCS,Double channel simplex
+DCT,Direct 
+DEC,December
+DEG,Degrees
+EST,Estimate or estimated or estimate 
+ETA,Estimate time of arrival or estimating arrival
+ETD,Estimated time of departure or estimating
+ETO,Estimated time over significant point
+FAC,Facilities
+FAF,Final approach fix
+FAL,Facilitation of international air transport
+FAP,Final approach point
+FATO,Final approach and take off area
+FAX,Facsimile transmission
+FBL,Light 
+FC,Funnel cloud 
+FCST,Forecast
+FCT,Friction coefficient
+FEB,February
+FG,Fog
+FIC,Flight information centre
+FIR,Flight information region
+FIS,Flight information service
+FL,Flight level
+FLG,Flashing
+FLR,Flares
+FLT,Flight
+FLTCK,Flight check
+FLW,Follow or following
+FM,From 
+FNA,Final approach
+FPAP,Flight path alignment point
+FPL,Flight plan
+FPM,Feet per minute
+FREQ,Frequency
+FRI,Friday
+FRNG,Firing
+FRONT,Front 
+FRQ,Frequent
+FST,First
+FT,Feet 
+FU,Smoke
+FZ,Freezing
+HVY,Heavy 
+HZ,Haze
+HZ,Hertz 
+I/V,Instrument / visual*
+IAC,Instrument approach chart
+IAF,Initial approach fix
+IAP,Instrument approach procedure
+IAS,Indicated air speed
+IASC,Inter-area speech circuit*
+IBN,Identification beacon
+IC,Illumination candles*
+ICAO,International Civil Aviation Organization
+ICE,Icing
+ID,Identifier or identify
+IDENT,Identification
+IF,Intermediate approach fix
+IFR,Instrument flight rules
+ILS,Instrument landing system
+IMC,Instrument meteorological conditions
+IMG,Immigration
+INA,Initial approach
+INBD,Inbound
+INCERFA,Uncertainty phase
+INFO,Information
+INOP,Inoperative
+INPR,In progress
+INS,Inertial navigation system
+INSTL,Install or installed or installation
+INSTR,Instrument
+INT,Intersection
+INTL,International
+INTRG,Interrogator
+INTRP,Interrupt or interruption or interrupted
+INTSF,Intensify or intensifying
+INTST,Intensity
+IR,Ice on runway
+ISA,International standard atmosphere
+ISOL,Isolated
+JAN,January
+JUL,July
+JUN,June
+MEA,Minimum en-route altitude
+MEDEVAC,Medical evacuation flight
+MEHT,Minimum eye height above threshold 
+MET,Meteorological or meteorology
+METAR,Aerodrome routine meteorological report 
+MF,Medium frequency 
+MHZ,Megahertz
+MID,Mid-point 
+MIFG,Shallow fog
+MIL,Military
+MIN,Minutes
+MLS,Microwave landing system
+MM,Middle marker
+MMF,Middle marker fix*
+MNM,Minimum
+MNPS,Minimum navigation performance
+MNTN,Maintain
+MOC,Minimum obstacle clearance 
+MOD,Moderate 
+MON,Monday
+MOV,Move or moving or movement
+MRA,Minimum reception altitude
+MRG,Medium range
+MRP,ATS/MET reporting point
+MS,Minus
+MSA,Minimum sector altitude
+MSAS,Multi-functional satellite-based augmentation
+MSAW,Minimum safe altitude warning
+MSG,Message
+MSL,Mean sea level
+MT,Mountain
+MTW,Mountain waves
+MX,Mixed type of ice information 
+N,No distinct tendency 
+N,North or northern latitude
+NAV,Navigation
+NAVAID,Navigation aid
+NB,Northbound
+OCN,Oceanic control area*
+OCNL,Occasional or occasionally
+OCS,Obstacle clearance surface
+OCT,October
+OM,Outer marker
+OMF,Outer marker fix*
+OPMET,Operational meteorological 
+OPN,Open or opening or opened
+OPR,Operator or operate or operative or operating or
+OPS,Operations
+OVC,Overcast
+P,Maximum value of wind speed runway visual
+P,Prohibited area 
+PA,Precision approach
+PANS,Procedures for air navigation services
+PAPI,Precision approach path indicator
+PARA,Paragraph*
+PAX,Passenger
+PBN,Performance-based navigation
+PCN,Pavement classification number
+PDC,Pre-departure clearance
+PE,Ice pellets
+PER,Performance
+PERM,Permanent
+PLVL,Present level
+PN,Prior notice required
+PNR,Point of no return
+PO,Dust devils
+POB,Persons on board
+PPR,Prior permission required
+PRI,Primary
+PROB,Probability
+PROC,Procedure
+PS,Plus
+PSN,Position
+PWR,Power
+QDM,Magnetic heading 
+QDR,Magnetic bearing
+QFE,Atmospheric pressure at aerodrome elevation
+RSSR,En-route secondary surveillance radar*
+RTD,Delayed 
+RTE,Route
+RTF,Radiotelephone
+RVR,Runway visual range
+RVSM,Reduced vertical separation minima
+RWY,Runway
+S,South or southern latitude
+SA,Sand
+SAR,Search and rescue
+SARPS,Standards and Recommended Practices
+SAT,Saturday
+SATCOM,Satellite communication 
+SB,Southbound
+SBAS,Satellite-based augmentation system
+SC,Stratocumulus
+SCT,Scattered
+SDBY,Stand by
+SE,South-east
+SEA,South East Asia*
+SEB,South-eastbound
+SEC,Seconds
+SECT,Sector
+SELCAL,Selective calling system
+SEP,September
+SER,Service or servicing or served
+SEV,Severe 
+SFC,Surface
+SG,Snow grains
+SH,Showers 
+SID,Standard Instrument Departure
+SIGMET,Information concerning en-route weather and
+SIGWX,Significant weather*
+SKARA,Shek Kong Aerodrome Reporting Area*
+SKC,Sky clear*
+TAS,True airspeed
+TC,Tropical cyclone
+TCAS,Traffic alert and collision avoidance system*
+TCAS RA,Traffic alert and collision avoidance system
+TCH,Threshold crossing height*
+TCU,Towering cumulus
+TDWR,Terminal Doppler Weather Radar*
+TDZ,Touchdown zone
+TEL,Telephone
+TEMP,Temperature*
+TEMPO,Temporary or temporarily
+TEND,Trend forecast*
+TFC,Traffic
+THR,Threshold
+THRU,Through
+THU,Thursday
+TIL,Until
+TL,Till 
+TMA,Terminal control area
+TN,Minimum temperature
+TO,To ... 
+TODA,Take-off distance available
+TORA,Take-off run available
+TR,Track
+TRANS,Transmits or transmitter
+TRL,Transition level
+TROP,Tropopause
+TS,Thunderstorm 
+TS,Thunderstorm 
+TSR,Terminal surveillance radar*
+TSSR,Terminal secondary surveillance radar*
+TTR,Terminal Transition Route*
+TUE,Tuesday
+TURB,Turbulence
+TVOR,Terminal VOR
+TWR,Aerodrome control tower or aerodrome control
+TWY,Taxiway
+TX,Maximum temperature
+WED,Wednesday
+WEF,With effect from or effective from
+WIE,With immediate effect or effective immediately
+WILCO,Will comply
+WINTEM,Forecast upper wind and temperature for
+WIP,Work in progress
+WNW,West north west
+WPT,Way-point
+WRNG,Warning
+WS,Wind shear
+WSW,West south west
+WT,Weight
+WTWS,Windshear and Turbulence Warning System*
+WX,Weather
+X,Cross
+XBAR,Crossbar 
+XNG,Crossing
+XS,Atmospherics
+YCZ,Yellow caution zone 
+YR,Your
+Z,Co-ordinated Universal Time 
+ZNC,Zone Control*

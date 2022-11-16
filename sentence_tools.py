@@ -1,13 +1,15 @@
 import re
-import numpy as np
 import pandas as pd
 
 # 
 def preprocess_sentence_code(sentence: str, action_words):
     '''
     '''
+    # 去除 '.'
+    sentence = sentence.replace('.', '')
+    # 多个空格变一个空格
+    sentence = ' '.join(sentence.split())
     # 大写化
-    
     # 判断是否多动词共有主语
     match = re.search(r".*?(?={0}) .*(AND?={0})*".format(action_words), sentence, flags=re.I)
     if match:

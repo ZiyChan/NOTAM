@@ -34,7 +34,7 @@ def preprocess_sentence_code(sentence: str, action_words):
 # action_words = " NOT AVBL| U/S"
 # preprocess_sentence_code(sentence, action_words)
 
-# def read_words(path=RULES_TABLE)
+# read words
 def read_words(path, sheet_name='words_list'):
     '''
     '''
@@ -50,7 +50,7 @@ def read_words(path, sheet_name='words_list'):
     return action, reason, limit, source
 
 # get_item_pattern_list(path=RULES_TABLE, action_words, reason_words, limit_words, source_words)
-def get_item_pattern_list(action_words, reason_words, limit_words, source_words, path, sheet_name='base_rules', ):
+def get_item_pattern_list(action_words, reason_words, limit_words, source_words, path, sheet_name='base_rules'):
     '''
     '''
     df_rules = pd.read_excel(path, sheet_name=sheet_name)

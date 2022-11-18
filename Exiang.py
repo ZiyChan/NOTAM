@@ -15,6 +15,9 @@ def navl_program(s):
     reason_result = re.findall(reson_pattern, s)
     main_result = []
     main_result.append(','.join(en_result))  # 实体
+    runway_pattern = 'RWY\d\d'
+    runway_res = re.findall(runway_pattern, ','.join(en_result))
+    main_result.append(list(set(runway_res)))
     main_result.append('程序不可用') #　动作
     main_result.append(','.join(reason_result)) # 原因
     main_result.append(' ')
@@ -40,6 +43,11 @@ def verify_plan(s):
     en_result = [res.strip() for res in en_result if res.strip()]
     main_result = []
     main_result.append(','.join(en_result))  # 实体
+    runway_res = []
+    for runway in en_result:
+        if 'RWY' in runway:
+            runway_res.append(runway.split(' ')[0])
+    main_result.append(list(set(runway_res)))
     main_result.append('校验')  # 动作
     reason_result = re.findall(reason_pattern, s)
     main_result.append(','.join(reason_result))  # 原因
@@ -80,6 +88,9 @@ def barrier(s):
     else:
         limit_result = ''
     main_result.append(limit_result)
+    runway_pattern = 'RWY\d\d'
+    runway_res = re.findall(runway_pattern, limit_result)
+    main_result.insert(1, list(set(runway_res)))
     main_result.append(' ')
     main_result.append(' ')
     main_result.append(' ')
@@ -138,8 +149,8 @@ def chinese_svo(e_option_text: str) -> List[List[str]]:
     # limit=a
     if len(action) > 40:
         action = list(jieba.cut(action))[0]
-        # 实体，动作，原因，限制，限制-翼展，限制-重量，来源
-    return [[en, action, reason, '', '', '', '']]
+        # 实体，跑道实体， 实体动作，原因，限制，限制-翼展，限制-重量，来源
+    return [[en, [en], action, reason, '', '', '', '']]
 
 def chinese_or_not(e_option_text: str) -> bool:
     '''
@@ -151,4 +162,5 @@ def chinese_or_not(e_option_text: str) -> bool:
     match = zh_pattern.findall(e_option_text)
 
     return False if not match else True
+
 

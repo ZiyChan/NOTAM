@@ -1,4 +1,12 @@
 ICAO_abbr = {
+    'IFR': 'Instrument flight rules',
+    'ILS': 'Instrument landing system',
+    'MTOW': 'Maximum takeoff weight',
+    'MTOM': 'Maximum takeoff mass',
+    'MTWA': 'Maximum total weight authorized',
+    'VHHH': 'Hong Kong International Airport',
+    'HKG': 'Hong Kong International Airport',
+    'VFR': 'Visual flight rules',
     'A/A': 'Air-to-air',
     'A/G': 'Air-to-ground',
     'AAL': 'Above Aerodrome Level',

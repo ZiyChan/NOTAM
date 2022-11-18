@@ -1,5 +1,5 @@
-import timeutils
 import _abbr
+import _abbr2
 import re as _re
 import _parser
 from io import StringIO as _StringIO
@@ -70,6 +70,25 @@ class Notam(object):
                                                                     # of next verbatim
             return sb.getvalue()
 
+    def encoded(self):
+        """Returns the full text of the NOTAM, with ICAO terms encoded into their abbreviated form where
+        appropriate."""
+
+        with _StringIO() as sb:
+            indices = [getattr(self, 'indices_item_{}'.format(i)) for i in ('d', 'e', 'f', 'g')]
+            indices = [i for i in indices if i is not None]
+            indices.sort() # The items should already be listed in the order of their apperance in the text, but
+                           # we sort them here just in case
+            indices = [(0, 0)] + indices + [(-1, -1)]
+
+            for (cur, nxt) in zip(indices, indices[1:]):
+                (cs, ce) = cur
+                (ns, ne) = nxt
+                sb.write(self.encode_abbr(self.full_text[cs:ce]))   # decode the text of this range
+                sb.write(self.full_text[ce:ns])                     # copy the text from end of current range to start
+                                                                    # of next verbatim
+            return sb.getvalue()
+
 
     @staticmethod
     def from_str(s):
@@ -87,3 +106,11 @@ class Notam(object):
                                                   '|'.join([_re.escape(key) for key in _abbr.ICAO_abbr.keys()]) +
                                                   r')\b')
         return Notam.decode_abbr.regex.sub(lambda m: _abbr.ICAO_abbr[m.group()], txt)
+
+    def encode_abbr(self, txt):
+        """Encodes un-abbreviated ICAO terms in 'txt' to their abbreviated form."""
+        if not getattr(Notam.encode_abbr, 'regex', False):
+            Notam.encode_abbr.regex = _re.compile(r'\b(' +
+                                                  '|'.join([_re.escape(key) for key in _abbr2.ICAO_abbr.keys()]) +
+                                                  r')\b')
+        return Notam.encode_abbr.regex.sub(lambda m: _abbr2.ICAO_abbr[m.group()], txt)

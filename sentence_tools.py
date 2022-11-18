@@ -34,7 +34,8 @@ def preprocess_sentence_code(sentence: str, action_words):
 # action_words = " NOT AVBL| U/S"
 # preprocess_sentence_code(sentence, action_words)
 
-# read words
+
+# 
 def read_words(path, sheet_name='words_list'):
     '''
     '''
@@ -49,8 +50,9 @@ def read_words(path, sheet_name='words_list'):
     source = " REFER| REF"
     return action, reason, limit, source
 
-# get_item_pattern_list(path=RULES_TABLE, action_words, reason_words, limit_words, source_words)
-def get_item_pattern_list(action_words, reason_words, limit_words, source_words, path, sheet_name='base_rules'):
+
+# 
+def get_item_pattern_list(action_words, reason_words, limit_words, source_words, path, sheet_name='base_rules', ):
     '''
     '''
     df_rules = pd.read_excel(path, sheet_name=sheet_name)
@@ -107,9 +109,58 @@ def pattern_combine(pattern_entity_ls, pattern_action_ls, pattern_reason_ls, pat
         for pattern_action in pattern_action_ls:
             for p_limit in pattern_limit_ls:
                 pattern_ls.append(p_entity + pattern_action + p_limit)
+    # 主语 + 动词 + 来源
+    for p_entity in pattern_entity_ls:
+        for pattern_action in pattern_action_ls:
+            for p_source in pattern_source_ls:
+                pattern_ls.append(p_entity + pattern_action + p_source)
     # 主语 + 动词
     for p_entity in pattern_entity_ls:
         for pattern_action in pattern_action_ls:
             pattern_ls.append(p_entity + pattern_action)
     # print(len(pattern_ls))
     return pattern_ls 
+
+
+# general rules
+def get_general_rules(path, words_sheet, rules_sheet):
+    '''
+    '''
+    # read_words
+    action_words, reason_words, limit_words, source_words = read_words(path=path, sheet_name=words_sheet)
+    # get each item pattern list
+    pattern_entity_ls, pattern_action_ls, pattern_reason_ls, pattern_limit_ls, pattern_source_ls = get_item_pattern_list(action_words, reason_words, limit_words, source_words, path=path, sheet_name=rules_sheet)
+    # pattern combine 
+    pattern_ls = pattern_combine(pattern_entity_ls, pattern_action_ls, pattern_reason_ls, pattern_limit_ls, pattern_source_ls)
+    return pattern_ls
+
+
+# pattern supply
+def get_supplement_rules(path, words_sheet, rules_sheet):
+    '''
+    '''
+    # read_words
+    action_words, reason_words, limit_words, source_words = read_words(path=path, sheet_name=words_sheet)
+    # read supplement_rules
+    df_rules = pd.read_excel(path, sheet_name=rules_sheet)
+    format_ls = list(set(df_rules['FORMAT'].values))
+    print(format_ls)
+    supplement_pattern_ls = []
+    for item in format_ls:
+        if item == "NONE":
+            supplement_pattern_ls.extend(list(df_rules.loc[df_rules['FORMAT'] == item, 'RULES'].values))
+        elif item == "action":
+            supplement_pattern_ls.extend([rule.format(action_words) for rule in list(df_rules.loc[df_rules['FORMAT'] == item, 'RULES'].values)])
+        elif item == "reason":
+            supplement_pattern_ls.extend([rule.format(reason_words) for rule in list(df_rules.loc[df_rules['FORMAT'] == item, 'RULES'].values)])
+        elif item == "limit":
+            supplement_pattern_ls.extend([rule.format(limit_words) for rule in list(df_rules.loc[df_rules['FORMAT'] == item, 'RULES'].values)])
+        elif item == "source":
+            supplement_pattern_ls.extend([rule.format(source_words) for rule in list(df_rules.loc[df_rules['FORMAT'] == item, 'RULES'].values)])
+        else:
+            print("error")
+    return supplement_pattern_ls
+
+# RULES_TABLE = 'E:/Workstation/data/NOTAM/NOTAM_table.xlsx'
+# SUPPLEMENT_RULES = get_supplement_rules(RULES_TABLE, words_sheet="words_list", rules_sheet="supplement_rules")
+# len(SUPPLEMENT_RULES)

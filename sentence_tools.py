@@ -92,18 +92,39 @@ def pattern_combine(pattern_entity_ls, pattern_action_ls, pattern_reason_ls, pat
                 for p_limit in pattern_limit_ls:
                     for p_source in pattern_source_ls:
                         pattern_ls.append(p_entity + pattern_action + p_reason + p_limit + p_source)
+    # 主语 + 动词 + 限制 + 原因 + 来源
+    for p_entity in pattern_entity_ls:
+        for pattern_action in pattern_action_ls:
+            for p_reason in pattern_reason_ls:
+                for p_limit in pattern_limit_ls:
+                    for p_source in pattern_source_ls:
+                        pattern_ls.append(p_entity + pattern_action + p_reason + p_limit + p_source)
+
     # 主语 + 动词 + 原因 + 限制
     for p_entity in pattern_entity_ls:
         for pattern_action in pattern_action_ls:
             for p_reason in pattern_reason_ls:
                 for p_limit in pattern_limit_ls:
                     pattern_ls.append(p_entity + pattern_action + p_reason + p_limit)
-    # 主语 + 动词 + 原因 + 限制
+    # 主语 + 动词 + 限制 + 原因
     for p_entity in pattern_entity_ls:
         for pattern_action in pattern_action_ls:
             for p_limit in pattern_limit_ls:
                 for p_reason in pattern_reason_ls:
                     pattern_ls.append(p_entity + pattern_action + p_limit + p_reason)
+    # 主语 + 动词 + 限制 + 来源
+    for p_entity in pattern_entity_ls:
+        for pattern_action in pattern_action_ls:
+            for p_limit in pattern_limit_ls:
+                for p_source in pattern_source_ls:
+                    pattern_ls.append(p_entity + pattern_action + p_limit + p_source)
+    # 主语 + 动词 + 原因 + 来源
+    for p_entity in pattern_entity_ls:
+        for pattern_action in pattern_action_ls:
+            for p_reason in pattern_reason_ls:
+                for p_source in pattern_source_ls:
+                    pattern_ls.append(p_entity + pattern_action + p_reason + p_source)
+
     # 主语 + 动词 + 原因
     for p_entity in pattern_entity_ls:
         for pattern_action in pattern_action_ls:
@@ -119,11 +140,14 @@ def pattern_combine(pattern_entity_ls, pattern_action_ls, pattern_reason_ls, pat
         for pattern_action in pattern_action_ls:
             for p_source in pattern_source_ls:
                 pattern_ls.append(p_entity + pattern_action + p_source)
+
     # 主语 + 动词
     pattern_action_ls_greedy = [s[:-2] + ')' for s in pattern_action_ls] # to greedy model
     for p_entity in pattern_entity_ls:
         for pattern_action in pattern_action_ls_greedy:
             pattern_ls.append(p_entity + pattern_action)
+    
+    # 主语 + 限制
     
     return pattern_ls 
 

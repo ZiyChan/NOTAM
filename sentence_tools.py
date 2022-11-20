@@ -56,6 +56,16 @@ def cut_entity(entity):
         return entity
 
 
+def reorganize(mydict):
+    ''''''
+    for item in ['entity', 'runway', 'action', 'reason', 'limit', 'limit_wings', 'limit_weight', 'source']: # clearn
+        mydict[item] = mydict[item].strip(",.-: ") 
+        
+    if re.search(r"^(AVBL).* (PPR|PN).*", mydict['action'], flags=re.I):
+        mydict['limit'] = mydict['action'] + mydict['limit']
+        mydict['action'] = ""
+    return mydict
+
 # 
 def read_words(path, sheet_name='words_list'):
     '''
@@ -234,6 +244,7 @@ def get_supplement_rules(path, words_sheet, rules_sheet):
 
 
 print("Loading rules table...")
+# RULES_TABLE = 'E:/Workstation/data/NOTAM/NOTAM_table.xlsx'
 RULES_TABLE = "data/NOTAM_table.xlsx"
 print("Loading rules table...done")
 print("Loading RULES_LIST...")
@@ -243,7 +254,7 @@ SUPPLEMENT_RULES.extend(GENERAL_RULES)
 RULES_LIST = SUPPLEMENT_RULES
 print("Loading RULES_LIST...done")
 print("Loading action_words...")
-action_words, _, LIMIT_WORDS, _ = read_words(path=RULES_TABLE, sheet_name="words_list")
+action_words, _, _, _ = read_words(path=RULES_TABLE, sheet_name="words_list")
 print("Loading action_words...done")
 
 
@@ -280,7 +291,7 @@ def sentence_parse(sentence_code: str):
                     res_dict['reason'] = match_dict['reason']
                 if 'limit' in match_dict:
                     res_dict['limit'] = match_dict['limit']
-                    if re.search(r"WINGSPAN", res_dict['limit'], flags=re.I): # wings limit
+                    if re.search(r"WINGSPAN|WING SPAN", res_dict['limit'], flags=re.I): # wings limit
                         res_dict['limit_wings'] = res_dict['limit']
                         res_dict['limit'] = ""
                     if re.search(r" WT | WEIGHT |[0-9]KG| KG|[0-9]TONES| TONES", res_dict['limit'], flags=re.I): # wight limit
@@ -289,6 +300,7 @@ def sentence_parse(sentence_code: str):
                 if 'source' in match_dict:
                     res_dict['source'] = match_dict['source']
                 # print(res_dict)
+                res_dict = reorganize(res_dict)
                 res_list = list(res_dict.values())
                 res_list = [item.strip(",:-. ") for item in res_list] # clean
                 # print(res_list)

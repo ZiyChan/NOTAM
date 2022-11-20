@@ -35,6 +35,26 @@ def preprocess_sentence_code(sentence: str, action_words):
 # preprocess_sentence_code(sentence, action_words)
 
 
+def cut_entity(entity):
+    ''''''
+    if not entity: return entity
+    index = entity.find(':')
+    if index == -1: return entity
+    if index == len(entity) - 1:
+        return entity[:index]
+    words = entity[:index].split(' ')
+    def is_rwy(text):
+        keylist = ['rwy', 'RWY', 'twy', 'TWY', 'RUNWAY', 'HOLDLINE']
+        for key in keylist: 
+            if key in text:
+                return True
+        return False
+    if len(words) < 4 and not is_rwy(entity[:index]):
+        return entity[index + 1: ]
+    else:
+        return entity
+
+
 # 
 def read_words(path, sheet_name='words_list'):
     '''
@@ -84,6 +104,11 @@ def get_item_pattern_list(action_words, reason_words, limit_words, source_words,
 def pattern_combine(pattern_entity_ls, pattern_action_ls, pattern_reason_ls, pattern_limit_ls, pattern_source_ls):
     '''
     '''
+    # to greedy model
+    pattern_action_ls_greedy = [s[:-2] + ')' for s in pattern_action_ls] 
+    pattern_reason_ls_greedy = [s[:-2] + ')' for s in pattern_reason_ls] 
+    pattern_limit_ls_greedy = [s[:-2] + ')' for s in pattern_limit_ls] 
+
     pattern_ls = []
     # 主语 + 动词 + 原因 + 限制 + 来源
     for p_entity in pattern_entity_ls:
@@ -110,7 +135,7 @@ def pattern_combine(pattern_entity_ls, pattern_action_ls, pattern_reason_ls, pat
     for p_entity in pattern_entity_ls:
         for pattern_action in pattern_action_ls:
             for p_limit in pattern_limit_ls:
-                for p_reason in pattern_reason_ls:
+                for p_reason in pattern_reason_ls_greedy: # reason greedy
                     pattern_ls.append(p_entity + pattern_action + p_limit + p_reason)
     # 主语 + 动词 + 限制 + 来源
     for p_entity in pattern_entity_ls:
@@ -128,8 +153,9 @@ def pattern_combine(pattern_entity_ls, pattern_action_ls, pattern_reason_ls, pat
     # 主语 + 动词 + 原因
     for p_entity in pattern_entity_ls:
         for pattern_action in pattern_action_ls:
-            for p_reason in pattern_reason_ls:
+            for p_reason in pattern_reason_ls_greedy: # reason greedy
                 pattern_ls.append(p_entity + pattern_action + p_reason)
+
     # 主语 + 动词 + 限制
     for p_entity in pattern_entity_ls:
         for pattern_action in pattern_action_ls:
@@ -142,12 +168,14 @@ def pattern_combine(pattern_entity_ls, pattern_action_ls, pattern_reason_ls, pat
                 pattern_ls.append(p_entity + pattern_action + p_source)
 
     # 主语 + 动词
-    pattern_action_ls_greedy = [s[:-2] + ')' for s in pattern_action_ls] # to greedy model
     for p_entity in pattern_entity_ls:
-        for pattern_action in pattern_action_ls_greedy:
+        for pattern_action in pattern_action_ls_greedy: # action greedy
             pattern_ls.append(p_entity + pattern_action)
     
     # 主语 + 限制
+    for p_entity in pattern_entity_ls:
+        for p_limit in pattern_limit_ls:
+            pattern_ls.append(p_entity + p_limit)
     
     return pattern_ls 
 

@@ -1,6 +1,7 @@
 import re
 import pandas as pd
 
+
 # 
 def preprocess_sentence_code(sentence: str, action_words):
     '''
@@ -230,3 +231,61 @@ def get_supplement_rules(path, words_sheet, rules_sheet):
 # RULES_TABLE = 'E:/Workstation/data/NOTAM/NOTAM_table.xlsx'
 # SUPPLEMENT_RULES = get_supplement_rules(RULES_TABLE, words_sheet="words_list", rules_sheet="supplement_rules")
 # len(SUPPLEMENT_RULES)
+
+
+print("Loading rules table...")
+RULES_TABLE = "data/NOTAM_table.xlsx"
+print("Loading rules table...done")
+print("Loading RULES_LIST...")
+GENERAL_RULES = get_general_rules(RULES_TABLE, words_sheet="words_list", rules_sheet="base_rules")
+SUPPLEMENT_RULES = get_supplement_rules(RULES_TABLE, words_sheet="words_list", rules_sheet="supplement_rules")
+SUPPLEMENT_RULES.extend(GENERAL_RULES)
+RULES_LIST = SUPPLEMENT_RULES
+print("Loading RULES_LIST...done")
+print("Loading action_words...")
+action_words, _, _, _ = read_words(path=RULES_TABLE, sheet_name="words_list")
+print("Loading action_words...done")
+
+
+# 单句解析
+def sentence_parse(sentence_code: str):
+    # read_words
+    sentence_ls = preprocess_sentence_code(sentence_code, action_words)
+    # sentence_parse
+    is_match = False
+    res_list_ls = []
+    for sentence in sentence_ls:
+        tmp_is_match = False
+        res_dict = {item: "" for item in ['entity', 'runway', 'action', 'reason', 'limit', 'limit_wings', 'limit_weight', 'source']}
+        for pattern in RULES_LIST:
+            match = re.search(pattern, sentence, flags=re.I)
+            if match:
+                tmp_is_match = True
+                match_dict = match.groupdict()
+                # print(match_dict)
+                if 'entity' in match_dict:
+                    res_dict['entity'] = cut_entity(match_dict['entity'])
+                if 'entity_supply' in match_dict:
+                    res_dict['entity'] = res_dict['entity'] + ' ' + match_dict['entity_supply']
+                if 'runway' in res_dict:
+                    res_dict['runway'] = str(re.findall(r"(?:RWY|RUNWAY) *(?:[0-9]+[LRC/]*[0-9LRC]*)", res_dict['entity'], flags=re.I))
+                if 'action' in match_dict:
+                    res_dict['action'] = match_dict['action']
+                if 'reason' in match_dict:
+                    res_dict['reason'] = match_dict['reason']
+                if 'limit' in match_dict:
+                    res_dict['limit'] = match_dict['limit']
+                    if re.search(r" WT | WEIGHT |[0-9]KG ", res_dict['limit'], flags=re.I): # wight limit
+                        res_dict['limit_wings'] = res_dict['limit']
+                        res_dict['limit'] = ""
+                    if re.search(r"WINGSPAN", res_dict['limit'], flags=re.I): # wings limit
+                        res_dict['limit_weight'] = res_dict['limit']
+                        res_dict['limit'] = ""
+                if 'source' in match_dict:
+                    res_dict['source'] = match_dict['source']
+                res_list = list(res_dict.values())
+                res_list = [item.strip(",:-. ") for item in res_list] # clean
+                res_list_ls.append(res_list)
+                break
+        is_match = is_match or tmp_is_match
+    return is_match, res_list_ls

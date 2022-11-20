@@ -68,7 +68,7 @@ def read_words(path, sheet_name='words_list'):
     reason = " DUE"
     # limit = " EXCEPT | EXC | EXP | WHEN | FOLLOWING CONDITIONS | ONLY | FLW LIMITATIONS | IN CASE OF "
     limit = " " + "| ".join(limit_words_ls)
-    source = " REFER| REF"
+    source = " REFER| REF|SEE INTERNET"
     return action, reason, limit, source
 
 # 
@@ -268,7 +268,7 @@ def sentence_parse(sentence_code: str):
                 # print(match_dict)
                 if 'entity' in match_dict:
                     res_dict['entity'] = cut_entity(match_dict['entity']) # cut_entity
-                    res_dict['entity'] = re.sub(r"USE RESTRICTIONS|RESTRICTIONS|^DUE TO|^DUE", "", res_dict['entity'],  flags=re.I)
+                    res_dict['entity'] = re.sub(r"USE RESTRICTIONS|RESTRICTIONS|^DUE TO|^DUE", "", res_dict['entity'], flags=re.I)
                 if 'entity_supply' in match_dict:
                     res_dict['entity'] = res_dict['entity'] + ' ' + match_dict['entity_supply']
 
@@ -283,7 +283,7 @@ def sentence_parse(sentence_code: str):
                     if re.search(r"WINGSPAN", res_dict['limit'], flags=re.I): # wings limit
                         res_dict['limit_wings'] = res_dict['limit']
                         res_dict['limit'] = ""
-                    if re.search(r" WT | WEIGHT |[0-9]KG| KG", res_dict['limit'], flags=re.I): # wight limit
+                    if re.search(r" WT | WEIGHT |[0-9]KG| KG|[0-9]TONES| TONES", res_dict['limit'], flags=re.I): # wight limit
                         res_dict['limit_weight'] = res_dict['limit']
                         res_dict['limit'] = ""
                 if 'source' in match_dict:

@@ -243,7 +243,7 @@ SUPPLEMENT_RULES.extend(GENERAL_RULES)
 RULES_LIST = SUPPLEMENT_RULES
 print("Loading RULES_LIST...done")
 print("Loading action_words...")
-action_words, _, _, _ = read_words(path=RULES_TABLE, sheet_name="words_list")
+action_words, _, LIMIT_WORDS, _ = read_words(path=RULES_TABLE, sheet_name="words_list")
 print("Loading action_words...done")
 
 

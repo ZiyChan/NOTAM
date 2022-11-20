@@ -9,6 +9,7 @@ import re
 import warnings
 import pandas as pd
 import sentence_tools
+from debuggg import verify
 
 
 S = """(A1912/15 NOTAMN
@@ -18,12 +19,13 @@ E) PJE WILL TAKE PLACE AT AREA LAAB IN WALDE
 F) GND G) FL130)"""
 
 
-SHEET_NAME = "相对复杂"
+SHEET_NAME = "相对简单"
 warnings.filterwarnings("ignore")
 print("Loading model...")
 MODEL = PunctuationModel()
 print("Loading model... Done")
 verbs = sentence_tools.action_words.split('|')
+limits = sentence_tools.LIMIT_WORDS.split('|')
 
 
 # 解析 TODO: 去除非E项内容
@@ -59,8 +61,11 @@ def notam_decode(e_option: str) -> str:
 
 
 verbs_human = []
+limits_human = []
 for verb in verbs:
     verbs_human.append(notam_decode(verb))
+for limit in limits:
+    limits_human.append(notam_decode(limit))
 
 
 def bad_case_or_not(e_option_text: str) -> bool:
@@ -146,12 +151,17 @@ def punctuation(e_option_text: str) -> str:
         e_option_text_punc = re.sub(rf"(.*?) *\. *(?={verb}[ \.:,]+)", r"\1 ", e_option_text_punc)
     # 去掉TEL和数字之间的句号
     e_option_text_punc = re.sub(r"(Contact TEL|CONTACT TEL|APPROVAL ONLY TEL|Approved ONLY TEL)[:\. ]*(\+?[0-9 ]*)", r"\1 \2", e_option_text_punc)
+    # 去掉工作计划中间的句号
+    e_option_text_punc = re.sub(r"(Refer|REFER)[\. ]*(To|TO|to)?[\. ]*(METHOD OF WORKING)[\. ]*(PLAN)[\. ]*",
+                                r"\1 \2 \3 \4", e_option_text_punc)
     # 合并空格
     e_option_text_punc = ' '.join(e_option_text_punc.split())
     # 去掉管理员批准中间的句号
     e_option_text_punc = re.sub(r"(Aerodrome)[\. ]*(OPERATOR (?:APPROVAL|Approved) ONLY)", r"\1 \2", e_option_text_punc)
+    e_option_text_punc = e_option_text_punc.replace("APPROVAL ONLY. TEL", "APPROVAL ONLY TEL")
     # 去掉通知时间中间的句号
-    e_option_text_punc = re.sub(r"(MINUTES|Minutes|MIN|)[\. ]*((?:Prior|PRIOR) (?:NOTICE|Notice|NOTIFICATION|Permission|PERMISSION))", r"\1 \2", e_option_text_punc)
+    e_option_text_punc = re.sub(r"(MINUTES|Minutes|MIN|)[\. ]*(Prior|PRIOR)[\. ]*(NOTICE|Notice|NOTIFICATION|Permission|PERMISSION)",
+               r"\1 \2 \3", e_option_text_punc)
     # 去掉联系方式一整句话前面的句号
     e_option_text_punc = re.sub(r"\. *(Contact|CONTACT)[: +]*(?:TEL)*[: +]*([0-9 -]*\.)", r" \1 \2", e_option_text_punc)
     # WHEN不可以放句尾
@@ -161,10 +171,9 @@ def punctuation(e_option_text: str) -> str:
     e_option_text_punc = e_option_text_punc.replace("..", '.')
     e_option_text_punc = e_option_text_punc.replace("呜呜呜", "...")
     # bad_cases
-    e_option_text_punc = e_option_text_punc.replace("APPROVAL ONLY. TEL", "APPROVAL ONLY TEL")
     e_option_text_punc = e_option_text_punc.replace("IS PROHIBITED. FROM INTERSECTION Taxiway C1.", "IS PROHIBITED FROM INTERSECTION Taxiway C1.")
     e_option_text_punc = e_option_text_punc.replace("CLOSED. ALL TRAINING AND VFR FLIGHTS.", "CLOSED ALL TRAINING AND VFR FLIGHTS.")
-    e_option_text_punc = e_option_text_punc.replace("Refer To METHOD OF WORKING. PLAN 001-22, STAGE 2B.", "Refer To METHOD OF WORKING PLAN 001-22, STAGE 2B.")
+    e_option_text_punc = e_option_text_punc.replace("Closed FOR Landing AND Take-off TAXIING OF Aircraft ON Runway ", "Closed FOR Landing AND Take-off. TAXIING OF Aircraft ON Runway ")
     return e_option_text_punc
 
 
@@ -202,6 +211,7 @@ def sentence_tokenize(text: str) -> List[str]:
             temp = ''
         else:
             temp = sentence_ori
+    sentences = verify(sentences)
     return sentences
 
 
@@ -232,33 +242,49 @@ for i, v in enumerate(NOTAM["E项"]):
 print("开始解析中间结果")
 
 for i, v in enumerate(NOTAM["E项"]):
-    cnt = 0
+    cnt_verbs_human = 0
+    cnt_ent_limits_human = 0
+    # 中文处理
     if chinese_or_not(v):
-        NOTAM["是否使用分句及原因"][i] = "不分句，因为是中文"
+        NOTAM["是否使用分句及原因"][i] = "中文---单独处理"
+    # 英文处理
     else:
+        # 全部标点，分句
         v_punct = punctuation(NOTAM["E项-人类语"][i])
         NOTAM["E项-人类语标点符号预测"][i] = v_punct
         sentences = sentence_tokenize(v_punct)
         NOTAM["E项-人类语分句"][i] = sentences
+        # 判断是否使用分句
         if bad_case_or_not(v):
             NOTAM["是否使用分句及原因"][i] = "不使用分句，因为是bad_case，需要整体解析"
         elif len(sentences) == 1:
             NOTAM["是否使用分句及原因"][i] = "不使用分句，因为只有一句话"
-        elif len(re.findall(r"(RWY|TWY|Runway|RUNWAY)", v)) == 1:
+        elif len(re.findall(r"(RWY|TWY|Runway|RUNWAY|GP)", v)) == 1:
             NOTAM["是否使用分句及原因"][i] = "不使用分句，因为只有单一实体"
         else:
             for j in sentences:
-                flag = False
+                flag1 = False
+                flag2 = False
+                # 判断是否有动词
                 for x in verbs_human:
                     if j.__contains__(x):
-                        flag = True
+                        flag1 = True
                         break
-                if flag:
-                    cnt += 1
-            if cnt >= 2:
-                NOTAM["是否使用分句及原因"][i] = "使用分句"
+                # 判断是否有实体+限制
+                for x in limits_human:
+                    if j.__contains__(x) and (j.__contains__("TAXIWAY") or j.__contains__("Taxiway") or j.__contains__("Runway") or j.__contains__("RUNWAY") or j.__contains__("Glide Path")):
+                        flag2 = True
+                        break
+                if flag1:
+                    cnt_verbs_human += 1
+                if flag2:
+                    cnt_ent_limits_human += 1
+            if cnt_verbs_human >= 2:
+                NOTAM["是否使用分句及原因"][i] = "使用分句，因为有两句话及以上---存在动词表里的动词"
+            elif cnt_ent_limits_human >= 2:
+                NOTAM["是否使用分句及原因"][i] = "使用分句，因为有两句话及以上---同时存在实体和限制条件"
             else:
-                NOTAM["是否使用分句及原因"][i] = "不使用分句，因为没有两句话及以上---存在动词表里的动词"
+                NOTAM["是否使用分句及原因"][i] = "不使用分句，因为没有两句话及以上---存在动词表里的动词或同时存在实体和限制条件"
 
 NOTAM.to_excel("data/中间结果-" + SHEET_NAME + ".xlsx",index=False)
 print("中间结果写入完毕")
@@ -274,7 +300,7 @@ for i, v in enumerate(NOTAM["E项"]):
         svo_all = chinese_svo(v)
     elif bad_case_or_not(v):
         svo_all = bad_case_svo(v)
-    elif NOTAM["是否使用分句及原因"][i] == "使用分句":
+    elif NOTAM["是否使用分句及原因"][i] == "使用分句，因为有两句话及以上---存在动词表里的动词" or NOTAM["是否使用分句及原因"][i] == "使用分句，因为有两句话及以上---同时存在实体和限制条件":
         svo_all = []
         sentences = NOTAM["E项-人类语分句"][i]
         # 遍历一个E项所有待解析单句
@@ -291,7 +317,7 @@ for i, v in enumerate(NOTAM["E项"]):
     cache = ""
     for n in svo_all:
         # resul是一个解析结果（用in间隔）
-        result_single = n[0] + "/in/" + str(n[1]) + "/in/" + n[2] + "/in/"+ n[3] + "/in/" + n[4] + "/in/" + n[5] + "/in/" + n[6] + "/in/" + n[7]
+        result_single = n[0] + "/in/" + str(n[1]).strip("[]").replace('\'', '').replace('\"', '') + "/in/" + n[2] + "/in/"+ n[3] + "/in/" + n[4] + "/in/" + n[5] + "/in/" + n[6] + "/in/" + n[7]
         cache += "/out/"
         cache += result_single
         cache = cache.lstrip("/out/")

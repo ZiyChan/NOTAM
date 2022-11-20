@@ -35,7 +35,7 @@ def preprocess_sentence_code(sentence: str, action_words):
 # action_words = " NOT AVBL| U/S"
 # preprocess_sentence_code(sentence, action_words)
 
-
+# Liang Hao 
 def cut_entity(entity):
     ''''''
     if not entity: return entity
@@ -249,43 +249,51 @@ print("Loading action_words...done")
 
 # 单句解析
 def sentence_parse(sentence_code: str):
-    # read_words
+    '''
+    '''
+    # preprocess sentence_code
     sentence_ls = preprocess_sentence_code(sentence_code, action_words)
     # sentence_parse
     is_match = False
     res_list_ls = []
     for sentence in sentence_ls:
         tmp_is_match = False
-        res_dict = {item: "" for item in ['entity', 'runway', 'action', 'reason', 'limit', 'limit_wings', 'limit_weight', 'source']}
+        res_dict = {item: "" for item in ['entity', 'runway', 'action', 'reason', 'limit', 'limit_wings', 'limit_weight', 'source']} 
         for pattern in RULES_LIST:
             match = re.search(pattern, sentence, flags=re.I)
             if match:
+                # print(pattern)
                 tmp_is_match = True
                 match_dict = match.groupdict()
                 # print(match_dict)
                 if 'entity' in match_dict:
-                    res_dict['entity'] = cut_entity(match_dict['entity'])
+                    res_dict['entity'] = cut_entity(match_dict['entity']) # cut_entity
+                    res_dict['entity'] = re.sub(r"USE RESTRICTIONS|RESTRICTIONS|^DUE TO|^DUE", "", res_dict['entity'],  flags=re.I)
                 if 'entity_supply' in match_dict:
                     res_dict['entity'] = res_dict['entity'] + ' ' + match_dict['entity_supply']
+
                 if 'runway' in res_dict:
-                    res_dict['runway'] = str(re.findall(r"(?:RWY|RUNWAY) *(?:[0-9]+[LRC/]*[0-9LRC]*)", res_dict['entity'], flags=re.I))
+                    res_dict['runway'] = str(list(set(re.findall(r"(?:RWY|RUNWAY) *(?:[0-9]+[LRC/]*[0-9LRC]*)", res_dict['entity'], flags=re.I))))
                 if 'action' in match_dict:
                     res_dict['action'] = match_dict['action']
                 if 'reason' in match_dict:
                     res_dict['reason'] = match_dict['reason']
                 if 'limit' in match_dict:
                     res_dict['limit'] = match_dict['limit']
-                    if re.search(r" WT | WEIGHT |[0-9]KG ", res_dict['limit'], flags=re.I): # wight limit
+                    if re.search(r"WINGSPAN", res_dict['limit'], flags=re.I): # wings limit
                         res_dict['limit_wings'] = res_dict['limit']
                         res_dict['limit'] = ""
-                    if re.search(r"WINGSPAN", res_dict['limit'], flags=re.I): # wings limit
+                    if re.search(r" WT | WEIGHT |[0-9]KG| KG", res_dict['limit'], flags=re.I): # wight limit
                         res_dict['limit_weight'] = res_dict['limit']
                         res_dict['limit'] = ""
                 if 'source' in match_dict:
                     res_dict['source'] = match_dict['source']
+                # print(res_dict)
                 res_list = list(res_dict.values())
                 res_list = [item.strip(",:-. ") for item in res_list] # clean
+                # print(res_list)
                 res_list_ls.append(res_list)
                 break
+                # return (is_match, [res_list])
         is_match = is_match or tmp_is_match
-    return is_match, res_list_ls
+    return (is_match, res_list_ls)
